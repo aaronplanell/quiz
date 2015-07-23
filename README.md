@@ -22,8 +22,8 @@ Installation___________________________________________________________________
 
 	Para descargar: git clone https://github.com/aaronplanell/quiz
 	Para instalar:  cd quiz
-			npm install
-	Para ejecutar:	bin/www
+                        npm install
+	Para ejecutar:  bin/www
 
 
 API Reference__________________________________________________________________
