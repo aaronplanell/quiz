@@ -34,6 +34,9 @@ var Quiz = sequelize.import(path.join(__dirname,'quiz'));
 // Exportar definición de la tabla Quiz
 exports.Quiz = Quiz;
 
+//Exportar el protocolo para saber si estamos en SQLite o Postgres
+exports.protocol = protocol;
+
 // squelize.sync() crea e inicializa la tabala de preguntas en BBDD
 sequelize.sync().then(function (count) {
 
