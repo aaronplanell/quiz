@@ -20,6 +20,8 @@ router.get("/quizes/search", 							quizController.search);
 router.get("/quizes/new", 								quizController.new);
 router.post("/quizes/create",							quizController.create);
 router.put("/quizes/:quizId(\\d+)",						quizController.update);
+router.delete("/quizes/:quizId(\\d+)",					quizController.destroy);
+
 
 //Author
 router.get("/quizes/author", 							quizController.author);

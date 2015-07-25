@@ -125,6 +125,16 @@ exports.update = function (req, res) {
 		}
 	)
 }
+
+// GET /quizes/destroy
+exports.destroy = function (req, res) {
+	if (debug) console.log("quiz_controller.js: Running exports.destroy");
+
+	req.quiz.destroy().then(function() {
+		res.redirect('/quizes');
+	}).catch(function(error){next(error)});
+}
+
 // GET /quizes/author
 exports.author = function (req, res) {
 	if (debug) console.log("quiz_controller.js: Running exports.author");
