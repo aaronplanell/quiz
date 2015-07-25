@@ -69,6 +69,25 @@ exports.search = function (req, res) {
 	res.render('quizes/search', {titulo: 'Quiz'});
 }
 
+// GET /quizes/new
+exports.new = function (req, res) {
+	if (debug) console.log("quiz_controller.js: Running exports.new");
+
+	var quiz = models.Quiz.build({ pregunta: "Pregunta", respuesta: "Respuesta"});
+	res.render('quizes/new', {quiz: quiz});
+}
+
+// GET /quizes/create
+exports.create = function (req, res) {
+	if (debug) console.log("quiz_controller.js: Running exports.create");
+
+	var quiz = models.Quiz.build( req.body.quiz );
+
+	quiz.save({fields: ["pregunta", "respuesta"]}).then(function() {
+		res.redirect("/quizes");
+	})
+}
+
 // GET /quizes/author
 exports.author = function (req, res) {
 	if (debug) console.log("quiz_controller.js: Running exports.author");
