@@ -73,7 +73,7 @@ exports.search = function (req, res) {
 exports.new = function (req, res) {
 	if (debug) console.log("quiz_controller.js: Running exports.new");
 
-	var quiz = models.Quiz.build({ pregunta: "Pregunta", respuesta: "Respuesta"});
+	var quiz = models.Quiz.build({ pregunta: "Pregunta", respuesta: "Respuesta", tema: "Otro"});
 	res.render('quizes/new', {quiz: quiz, errors: []});
 }
 
@@ -97,7 +97,7 @@ exports.create = function (req, res) {
 				res.render('quizes/new', {quiz: quiz, errors: err.errors});
 			} else {
 				quiz
-					.save({fields: ["pregunta", "respuesta"]}) //Guardar
+					.save({fields: ["pregunta", "respuesta", "tema"]}) //Guardar
 					.then(function() {res.redirect("/quizes"); //Redireccionar
 				})
 			}
@@ -111,6 +111,7 @@ exports.update = function (req, res) {
 
 	req.quiz.pregunta 	= req.body.quiz.pregunta;
 	req.quiz.respuesta 	= req.body.quiz.respuesta;
+	req.quiz.tema 		= req.body.quiz.tema;
 
 	req.quiz.validate().then(
 		function(err){
@@ -118,7 +119,7 @@ exports.update = function (req, res) {
 				res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
 			} else {
 				req.quiz
-					.save({fields: ["pregunta", "respuesta"]}) //Guardar
+					.save({fields: ["pregunta", "respuesta", "tema"]}) //Guardar
 					.then(function() {res.redirect("/quizes"); //Redireccionar
 				})
 			}
