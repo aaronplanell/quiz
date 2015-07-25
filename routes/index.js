@@ -15,9 +15,11 @@ router.param('quizId', quizController.load);
 router.get("/quizes", 									quizController.index);
 router.get("/quizes/:quizId(\\d+)", 					quizController.show);
 router.get("/quizes/:quizId(\\d+)/answer", 				quizController.answer);
+router.get("/quizes/:quizId(\\d+)/edit", 				quizController.edit);
 router.get("/quizes/search", 							quizController.search);
 router.get("/quizes/new", 								quizController.new);
 router.post("/quizes/create",							quizController.create);
+router.put("/quizes/:quizId(\\d+)",						quizController.update);
 
 //Author
 router.get("/quizes/author", 							quizController.author);

@@ -77,6 +77,14 @@ exports.new = function (req, res) {
 	res.render('quizes/new', {quiz: quiz, errors: []});
 }
 
+// GET /quizes/edit
+exports.edit = function (req, res) {
+	if (debug) console.log("quiz_controller.js: Running exports.edit");
+
+	var quiz = req.quiz;
+	res.render('quizes/edit', {quiz: quiz, errors: []});
+}
+
 // GET /quizes/create
 exports.create = function (req, res) {
 	if (debug) console.log("quiz_controller.js: Running exports.create");
@@ -97,6 +105,26 @@ exports.create = function (req, res) {
 	)
 }
 
+// GET /quizes/update
+exports.update = function (req, res) {
+	if (debug) console.log("quiz_controller.js: Running exports.update");
+
+	req.quiz.pregunta 	= req.body.quiz.pregunta;
+	req.quiz.respuesta 	= req.body.quiz.respuesta;
+
+	req.quiz.validate().then(
+		function(err){
+			if (err) {
+				res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
+			} else {
+				req.quiz
+					.save({fields: ["pregunta", "respuesta"]}) //Guardar
+					.then(function() {res.redirect("/quizes"); //Redireccionar
+				})
+			}
+		}
+	)
+}
 // GET /quizes/author
 exports.author = function (req, res) {
 	if (debug) console.log("quiz_controller.js: Running exports.author");
