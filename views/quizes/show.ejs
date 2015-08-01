@@ -4,3 +4,20 @@
     	<input type="text" name="respuesta" value=""/>
     	<input type="submit" value="Enviar">
     </form>
+
+	<p>
+		<a href="/quizes/<%= quiz.id %>/comments/new">
+			<button>Nuevo comentario</button>
+		</a>
+	</p>
+
+	<table>
+		<tr><td>
+			<p><strong>Comentarios:</stront></p>
+		</tr></td>
+		<%for(iIndex in quiz.Comments) {%>
+			<tr><td>
+				<%= quiz.Comments[iIndex].texto%>
+			</td></tr>
+		<%}%>
+	</table>

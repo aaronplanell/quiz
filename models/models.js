@@ -28,11 +28,17 @@ var sequelize = new Sequelize(DB_name, user, pwd,
 						}
 					);
 
-// Importar la definición de la tabla Quiz en quiz.js
+// Importar la definición de la tablas
 var Quiz = sequelize.import(path.join(__dirname,'quiz'));
+var Comment = sequelize.import(path.join(__dirname,'comment'));
 
-// Exportar definición de la tabla Quiz
+//Establecer relación entre tablas
+Comment.belongsTo(Quiz);
+Quiz.hasMany(Comment);
+
+// Exportar definición de la tablas
 exports.Quiz = Quiz;
+exports.Comment = Comment;
 
 //Exportar el protocolo para saber si estamos en SQLite o Postgres
 exports.protocol = protocol;
