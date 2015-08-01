@@ -6,6 +6,14 @@ if (debug === "sqlite") debug = true;
 else debug = false;
 exports.debug = debug;
 
+// Middleware de autorización de accesos restringidos
+exports.loginRequired = function(req, res, next) {
+	if (req.session.user) 
+		next();
+	else
+		res.redirect("/login");
+}
+
 // GET /login . Formulario de Login
 exports.new = function (req, res) {
 	if (debug) console.log("session_controller.js: Running exports.new");

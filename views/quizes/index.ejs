@@ -6,6 +6,7 @@
 				<%= quizes[iIndex].pregunta %>
 			</a>
 		</td>
+		<% if(session.user) { %>
 		<td>
 			<a href="quizes/<%= quizes[iIndex].id %>/edit">
 				<button>editar</button>
@@ -18,7 +19,11 @@
 				</button>
 			</form>
 		</td>
+		<% } %>
 	</tr>
 <%	}%>
 </table><p>
+
+<% if(session.user) { %>
 <a href="/quizes/new"><button type="button">Crear pregunta</button></a>
+<% } %>
