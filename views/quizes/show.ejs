@@ -5,19 +5,36 @@
     	<input type="submit" value="Enviar">
     </form>
 
+    <br/>
 	<p>
 		<a href="/quizes/<%= quiz.id %>/comments/new">
 			<button>Nuevo comentario</button>
 		</a>
+	</p>
+	<p style="font-size: small">
+		Nota: Los comentarios quedarán pendientes de revisión
 	</p>
 
 	<table>
 		<tr><td>
 			<p><strong>Comentarios:</stront></p>
 		</tr></td>
-		<%for(iIndex in quiz.Comments) {%>
+
+		<%	
+			for(iIndex in quiz.Comments) {
+				if(quiz.Comments[iIndex].publicado || session.user) { 
+		%>
 			<tr><td>
 				<%= quiz.Comments[iIndex].texto%>
+
+				<% if(!quiz.Comments[iIndex].publicado && session.user) { %>
+					<a href="/quizes/<%= quiz.id %>/comments/<%= quiz.Comments[iIndex].id %>/publish">
+						<button>Publicar</button>
+					</a>
+				<% } %>
 			</td></tr>
-		<%}%>
+		<%	
+				}
+			}
+		%>
 	</table>
