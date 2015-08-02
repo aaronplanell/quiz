@@ -155,7 +155,7 @@ exports.calcStatistics = function(req, res, next) {
         models.Quiz.count(),
         models.Comment.count(),
 		models.Quiz.findAll({
-			where: ["Comments.id is null"],
+			where: ["\"Comments\".\"id\" is null"],
 			include: [{
 				model: models.Comment
 			}]
