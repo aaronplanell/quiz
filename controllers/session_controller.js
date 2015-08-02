@@ -44,6 +44,10 @@ exports.create = function (req, res) {
 		// Crear req.session.user y guardar campos de Id y Usuario
 		// La sesión se define por la existencia de req.session.user
 		req.session.user = { id:user.id, username:user.username };
+
+		// Inicializamos la variable temporal de la sesión
+		req.session.sessionTime = new Date();
+		if (debug) console.log("session_controller.js: Initialization session at " + req.session.sessionTime);
 		
 		// Redireccionamos al path original
 		res.redirect(req.session.redir.toString());
@@ -56,7 +60,18 @@ exports.destroy = function(req, res) {
 
 	// Eliminamos la sesión
 	delete req.session.user;
+	delete req.session.sessionTime;
 
 	// Redireccionamos al path original
 	res.redirect(req.session.redir.toString());
+}
+
+// debug Time
+exports.debugTime = function(sessionTime, currentTime, secondsTime) {
+	if (debug) {
+        console.log("app.js: Running app.use");
+        console.log("app.js:  - sessionTime: " + sessionTime);
+        console.log("app.js:  - currentTime: " + currentTime);
+        console.log("app.js:  - secondsTime: " + secondsTime);
+	}
 }
