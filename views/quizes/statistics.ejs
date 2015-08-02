@@ -1,0 +1,29 @@
+	<!--
+	 - El número de preguntas
+	 - El número de comentarios totales
+	 - El número medio de comentarios por pregunta
+	 - El número de preguntas sin comentarios
+	 - El número de preguntas con comentarios
+	 --> 
+    <table>
+    	<tr>
+    		<td>Número de preguntas</td>
+    		<td><%= statistics.quizes %></td>
+    	</tr>
+    	<tr>
+    		<td>Número de comentarios totales</td>
+    		<td><%= statistics.comments %></td>
+    	</tr>
+    	<tr>
+    		<td>Número medio de comentarios por pregunta</td>
+    		<td><%= statistics.average %></td>
+    	</tr>
+    	<tr>
+    		<td>Número de preguntas sin comentarios</td>
+    		<td><%= statistics.notcommented %></td>
+    	</tr>
+    	<tr>
+    		<td>Número de preguntas con comentarios</td>
+    		<td><%= statistics.commented %></td>
+    	</tr>
+    </table>

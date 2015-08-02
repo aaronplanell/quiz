@@ -1,5 +1,9 @@
 var models = require('../models/models.js');
 
+//Statistics
+var Sequelize  = require('sequelize');
+var statistics = {};
+
 //Variable de debug. Solo se activa si estamos en modo local. Es decir, utilizando SQLite
 var debug  = process.env.DATABASE_URL.substring(0, 6);
 if (debug === "sqlite") debug = true; 
@@ -145,3 +149,41 @@ exports.author = function (req, res) {
 
 	res.render('quizes/author', {titulo: 'Quiz', errors: []});
 }
+
+exports.calcStatistics = function(req, res, next) {
+    Sequelize.Promise.all([
+        models.Quiz.count(),
+        models.Comment.count(),
+		models.Quiz.findAll({
+			where: ["Comments.id is null"],
+			include: [{
+				model: models.Comment
+			}]
+		})        
+    ]).then( function( values ){
+        
+        statistics.quizes	= values[0];
+        statistics.comments	= values[1];
+
+        if(statistics.quizes>0) 
+        	statistics.average = (statistics.comments/statistics.quizes).toFixed(2);
+       	else
+       		statistics.average = 0;
+
+       	statistics.notcommented = values[2].length;
+       	statistics.commented = statistics.quizes - statistics.notcommented;
+
+    }).catch( function (err) {
+        next(err);
+    }).finally( function() {
+        next();
+    });
+};
+
+// GET /quizes/statistics
+exports.showStatistics = function(req, res) {
+    res.render('quizes/statistics', {
+        statistics: statistics,
+        errors: []
+    });
+};
